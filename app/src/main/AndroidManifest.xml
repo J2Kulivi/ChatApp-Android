@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://android.com"
     xmlns:tools="http://android.com">
 
-    <!-- Permissões obrigatórias para comunicação com o Render, Firebase e Notificações -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -15,7 +14,6 @@
         android:theme="@style/Theme.Material3.DayNight.NoActionBar"
         tools:targetApi="34">
 
-        <!-- Ecrã Inicial: Login / Registo -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -25,18 +23,15 @@
             </intent-filter>
         </activity>
 
-        <!-- Ecrã Principal: Lista de Utilizadores / Conversas -->
         <activity
             android:name=".UsuariosActivity"
             android:exported="false" />
 
-        <!-- Ecrã de Conversação: Chat em Tempo Real -->
         <activity
             android:name=".ChatActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
-        <!-- Serviço em Segundo Plano para Notificações Push (FCM) -->
         <service
             android:name=".service.MeuFirebaseMessagingService"
             android:exported="false">
@@ -45,7 +40,6 @@
             </intent-filter>
         </service>
 
-        <!-- Canal padrão para notificações recebidas com o app fechado -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="canal_mensagens_chat" />
