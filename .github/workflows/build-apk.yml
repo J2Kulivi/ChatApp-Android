@@ -13,16 +13,17 @@ jobs:
       - name: Descarregar código do repositório
         uses: actions/checkout@v4
 
-      - name: Limpar lixo e links nos ficheiros XML
+      - name: Reparar cabeçalhos dos ficheiros XML
         run: |
           python3 -c '
           import glob, re
-          for f in glob.glob("app/src/main/**/*.xml", recursive=True):
+          for f in glob.glob("app/src/main/res/layout/*.xml"):
               txt = open(f, encoding="utf-8-sig").read()
-              idx = txt.find("<")
-              if idx > 0:
-                  txt = txt[idx:]
               txt = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", txt)
+              lines = txt.splitlines()
+              if len(lines) > 1 and lines[1].strip().startswith("android:"):
+                  header = """<?xml version="1.0" encoding="utf-8"?>\n<LinearLayout xmlns:android="http://android.com"\n    xmlns:app="http://android.com" """
+                  txt = header + "\n" + "\n".join(lines[1:])
               open(f, "w", encoding="utf-8").write(txt.strip() + "\n")
           '
 
