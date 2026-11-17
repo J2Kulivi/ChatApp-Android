@@ -2,7 +2,8 @@ name: Gerar APK Android
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -15,16 +16,16 @@ jobs:
 
       - name: Reparar cabeçalhos dos ficheiros XML
         run: |
-          python3 -c '
-          import glob, re
-          for f in glob.glob("app/src/main/res/layout/*.xml"):
-              txt = open(f, encoding="utf-8-sig").read()
-              txt = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", txt)
-              lines = txt.splitlines()
-              if len(lines) > 1 and not lines.strip().startswith("<"):
-                  header = """<?xml version="1.0" encoding="utf-8"?>\n<LinearLayout xmlns:android="http://android.com" """
-                  txt = header + "\n" + "\n".join(lines[1:])
-              open(f, "w", encoding="utf-8").write(txt.strip() + "\n")
+          node -e '
+            const fs = require("fs");
+            const path = require("path");
+            const dir = "app/src/main/res/layout";
+            fs.readdirSync(dir).forEach(file => {
+              const p = path.join(dir, file);
+              let txt = fs.readFileSync(p, "utf8");
+              txt = txt.replace(/^<\?xml[^>]*>\s*(?!<)/m, "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://android.com\"\n    ");
+              fs.writeFileSync(p, txt);
+            });
           '
 
       - name: Configurar Java 17
