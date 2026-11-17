@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object RetrofitClient {
 
     // SUBSTITUI ESTE LINK PELO TEU URL DO RENDER (deve terminar com barra /)
-    private const val BASE_URL = "https://chatapp-android-server.onrender.com"
+    private const val BASE_URL = "https://chatapp-android-server.onrender.com/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
