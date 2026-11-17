@@ -21,8 +21,8 @@ jobs:
               txt = open(f, encoding="utf-8-sig").read()
               txt = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", txt)
               lines = txt.splitlines()
-              if len(lines) > 1 and lines[1].strip().startswith("android:"):
-                  header = """<?xml version="1.0" encoding="utf-8"?>\n<LinearLayout xmlns:android="http://android.com"\n    xmlns:app="http://android.com" """
+              if len(lines) > 1 and not lines.strip().startswith("<"):
+                  header = """<?xml version="1.0" encoding="utf-8"?>\n<LinearLayout xmlns:android="http://android.com" """
                   txt = header + "\n" + "\n".join(lines[1:])
               open(f, "w", encoding="utf-8").write(txt.strip() + "\n")
           '
