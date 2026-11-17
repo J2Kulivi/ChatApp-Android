@@ -11,7 +11,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.julivi.chatapp.R
 import com.julivi.chatapp.UsuariosActivity
 
 class MeuFirebaseMessagingService : FirebaseMessagingService() {
@@ -62,7 +61,7 @@ class MeuFirebaseMessagingService : FirebaseMessagingService() {
         )
 
         val notification = NotificationCompat.Builder(this, channelId)
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(android.R.drawable.ic_dialog_email)
             .setContentTitle(titulo)
             .setContentText(corpo)
             .setAutoCancel(true)
